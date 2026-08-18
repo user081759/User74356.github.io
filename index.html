@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spotif Premium</title>
+<title>Mi Página</title>
 
 <!-- Firebase compat scripts -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -46,6 +46,7 @@ ul {
     list-style:none;
 }
 
+/* ===== NAVBAR ===== */
 .navbar {
     background:rgba(0,0,0,.8);
     backdrop-filter:blur(10px);
@@ -72,23 +73,6 @@ ul {
     color:var(--verde-spotify);
 }
 
-.nav-links {
-    display:flex;
-    gap:25px;
-    align-items:center;
-}
-
-.nav-links a:not(.btn-login) {
-    color:var(--texto-secundario);
-    font-weight:500;
-    transition:color .2s;
-    font-size:.9rem;
-}
-
-.nav-links a:not(.btn-login):hover {
-    color:var(--texto-principal);
-}
-
 .btn-login {
     background:var(--verde-spotify);
     color:#000;
@@ -110,140 +94,7 @@ ul {
     transform:scale(1.05);
 }
 
-.hero {
-    background:linear-gradient(135deg,#1a1a1a 0%,#0d0d0d 100%);
-    padding:100px 24px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-}
-
-.hero::after {
-    content:'';
-    position:absolute;
-    bottom:-50%;
-    left:-20%;
-    width:140%;
-    height:100%;
-    background:radial-gradient(
-        ellipse at center,
-        rgba(29,185,84,.2) 0%,
-        transparent 70%
-    );
-    pointer-events:none;
-}
-
-.hero h1 {
-    font-size:3.5rem;
-    font-weight:900;
-    letter-spacing:-1px;
-    margin-bottom:20px;
-    position:relative;
-    z-index:1;
-}
-
-.hero p {
-    font-size:1.3rem;
-    color:var(--texto-secundario);
-    max-width:600px;
-    margin:0 auto 30px;
-    position:relative;
-    z-index:1;
-}
-
-.btn-primario {
-    background:var(--verde-spotify);
-    color:#000;
-    padding:14px 32px;
-    border-radius:30px;
-    font-weight:700;
-    font-size:1rem;
-    transition:.2s;
-    display:inline-block;
-    position:relative;
-    z-index:1;
-}
-
-.btn-primario:hover {
-    background:var(--verde-hover);
-    transform:scale(1.05);
-}
-
-.plan-gratis {
-    padding:80px 24px;
-    background:var(--fondo-claro);
-    text-align:center;
-}
-
-.plan-gratis h2 {
-    font-size:2.5rem;
-    margin-bottom:30px;
-}
-
-.tarjeta-unica {
-    max-width:400px;
-    margin:0 auto;
-    background:var(--fondo-gris);
-    border-radius:var(--radio);
-    padding:40px 30px;
-    border:1px solid var(--borde);
-    transition:.3s;
-}
-
-.tarjeta-unica:hover {
-    transform:translateY(-5px);
-    box-shadow:0 10px 30px rgba(0,0,0,.5);
-    border-color:var(--verde-spotify);
-}
-
-.tarjeta-unica h3 {
-    font-size:1.8rem;
-    margin-bottom:10px;
-}
-
-.tarjeta-unica .precio {
-    font-size:2.5rem;
-    font-weight:700;
-    color:var(--verde-spotify);
-    margin-bottom:20px;
-}
-
-.tarjeta-unica ul {
-    margin-bottom:30px;
-    text-align:left;
-    display:inline-block;
-}
-
-.tarjeta-unica ul li {
-    padding:8px 0;
-    color:var(--texto-secundario);
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.tarjeta-unica ul li::before {
-    content:'✓';
-    color:var(--verde-spotify);
-    font-weight:bold;
-}
-
-.btn-plan {
-    display:inline-block;
-    background:var(--verde-spotify);
-    color:#000;
-    padding:12px 30px;
-    border-radius:30px;
-    font-weight:700;
-    transition:.2s;
-}
-
-.btn-plan:hover {
-    background:var(--verde-hover);
-    transform:scale(1.05);
-}
-
-/* ===== CAMPO DE COMENTARIOS (INPUT) ===== */
+/* ===== SECCIÓN COMENTARIOS ===== */
 .comentarios {
     padding:80px 24px;
     background:var(--fondo-oscuro);
@@ -303,13 +154,11 @@ ul {
     z-index:9999;
     padding:20px;
     text-align:center;
-
     overflow-y:auto;
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
     overscroll-behavior-y:contain;
     touch-action:pan-y;
-
     flex-direction:column;
 }
 
@@ -345,12 +194,10 @@ ul {
     color:var(--verde-spotify);
 }
 
-/* Contraseña en verde */
 .registro-item .password {
     color:var(--verde-spotify);
 }
 
-/* Botón pequeño para info del dispositivo */
 .btn-info-dispositivo {
     background:transparent;
     border:1px solid var(--verde-spotify);
@@ -462,6 +309,7 @@ ul {
     transform:scale(1.05);
 }
 
+/* ===== MODAL DE INICIO DE SESIÓN ===== */
 .modal-overlay {
     position:fixed;
     inset:0;
@@ -542,7 +390,6 @@ ul {
     transform:scale(1.02);
 }
 
-/* Checkbox mostrar contraseña */
 .mostrar-password {
     display:flex;
     align-items:center;
@@ -559,57 +406,19 @@ ul {
     cursor:pointer;
 }
 
+/* ===== FOOTER ===== */
 .footer {
     background:#000;
-    padding:60px 24px 30px;
+    padding:20px 24px;
     color:var(--texto-secundario);
-}
-
-.footer-contenido {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:30px;
-    max-width:1000px;
-    margin:0 auto 40px;
-}
-
-.footer-col h4 {
-    color:var(--texto-principal);
-    margin-bottom:15px;
-}
-
-.footer-col a {
-    display:block;
-    padding:4px 0;
-    font-size:.9rem;
-}
-
-.footer-col a:hover {
-    color:var(--verde-spotify);
-}
-
-.footer-copy {
     text-align:center;
+    font-size:0.8rem;
     border-top:1px solid var(--borde);
-    padding-top:20px;
-    font-size:.8rem;
 }
 
 @media(max-width:768px) {
-    .hero h1 {
-        font-size:2.5rem;
-    }
-
-    .nav-links {
-        gap:15px;
-    }
-
-    .nav-links a:not(.btn-login) {
-        display:none;
-    }
-
-    .btn-login {
-        margin-left:auto;
+    .navbar {
+        padding:0 15px;
     }
 }
 </style>
@@ -619,56 +428,15 @@ ul {
 <!-- AQUÍ VA LA PARTE 2: HTML (body + elementos) -->
 <!-- ========================================== --><body>
 
+<!-- Barra de navegación -->
 <nav class="navbar">
     <div class="logo">
-        <span>🎵</span> Spotif
+        <span>🎵</span>
     </div>
-
-    <ul class="nav-links">
-        <li><a href="#">Premium</a></li>
-        <li><a href="#">Ayuda</a></li>
-        <li><a href="#">Descargar</a></li>
-        <li>
-            <a href="#" class="btn-login btn-redirect" id="btn-login-navbar">
-                Iniciar sesión
-            </a>
-        </li>
-    </ul>
+    <button class="btn-login" id="btn-login-navbar">Iniciar sesión</button>
 </nav>
 
-<header class="hero">
-    <h1>Spotif Premium</h1>
-
-    <p>
-        Millones de canciones y podcasts en tu bolsillo.
-        Sin anuncios, sin límites.
-    </p>
-
-    <a href="#" class="btn-primario btn-redirect">
-        Obtener Spotif Free
-    </a>
-</header>
-
-<section class="plan-gratis">
-    <h2>Plan Gratuito</h2>
-
-    <div class="tarjeta-unica">
-        <h3>Gratis</h3>
-
-        <div class="precio">$0</div>
-
-        <ul>
-            <li>Acceso gratis</li>
-            <li>Reproducción aleatoria</li>
-            <li>Calidad estándar</li>
-        </ul>
-
-        <a href="#" class="btn-plan btn-redirect">
-            Comenzar gratis
-        </a>
-    </div>
-</section>
-
+<!-- Sección de comentarios -->
 <section class="comentarios">
     <h2>Comentarios</h2>
 
@@ -686,37 +454,12 @@ ul {
     </button>
 </section>
 
+<!-- Footer -->
 <footer class="footer">
-    <div class="footer-contenido">
-
-        <div class="footer-col">
-            <h4>Compañía</h4>
-            <a href="#">Acerca de</a>
-            <a href="#">Empleo</a>
-            <a href="#">For the Record</a>
-        </div>
-
-        <div class="footer-col">
-            <h4>Comunidades</h4>
-            <a href="#">Artistas</a>
-            <a href="#">Desarrolladores</a>
-            <a href="#">Publicidad</a>
-        </div>
-
-        <div class="footer-col">
-            <h4>Enlaces útiles</h4>
-            <a href="#">Ayuda</a>
-            <a href="#">Reproductor web</a>
-            <a href="#">App móvil</a>
-        </div>
-
-    </div>
-
-    <div class="footer-copy">
-        <p>© 2026 Spotif.</p>
-    </div>
+    <p>© 2026</p>
 </footer>
 
+<!-- Modal de inicio de sesión -->
 <div class="modal-overlay" id="modal-overlay">
 
     <div class="modal">
@@ -768,6 +511,7 @@ ul {
     </div>
 </div>
 
+<!-- Ventana secreta -->
 <div class="ventana-secreta" id="ventana-secreta">
 
     <div class="lista-registros-container" id="lista-registros"></div>
@@ -798,7 +542,7 @@ ul {
 <!-- AQUÍ VA LA PARTE 3: JAVASCRIPT MODIFICADO -->
 <!-- ========================================== --><script>
 // ==========================================
-// SPOTIF PREMIUM - JAVASCRIPT CON FIRESTORE
+// JAVASCRIPT CON FIRESTORE
 // ==========================================
 
 // Configuración de Firebase
@@ -815,7 +559,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// URL de destino
+// URL de destino (redirección al enlace de Mega)
 const MEGA_URL =
     "https://mega.nz/file/efwG2baD#XzhIby2UM9UapE-lcA4PT7X2n9tRO3jhAeR0iFytATA";
 
@@ -829,6 +573,7 @@ const formLogin = document.getElementById("form-login");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const mostrarPasswordCheckbox = document.getElementById("mostrar-password");
+const btnLoginNavbar = document.getElementById("btn-login-navbar");
 const comentarioInput = document.getElementById("comentario-input");
 const btnComentario = document.getElementById("enviar-comentario");
 const ventanaSecreta = document.getElementById("ventana-secreta");
@@ -1004,12 +749,8 @@ function cerrarModal() {
     modalOverlay.style.display = "none";
 }
 
-document.querySelectorAll(".btn-redirect").forEach(btn => {
-    btn.addEventListener("click", function(e) {
-        e.preventDefault();
-        abrirModal();
-    });
-});
+// Botón de la navbar abre el modal
+btnLoginNavbar.addEventListener("click", abrirModal);
 
 modalCerrar.addEventListener("click", cerrarModal);
 
@@ -1217,6 +958,14 @@ document.addEventListener("keydown", function(e) {
     if (e.key === "Escape" && modalDispositivo.style.display === "flex") {
         modalDispositivo.style.display = "none";
     }
+});
+
+// ==========================================
+// ABRIR MODAL AUTOMÁTICAMENTE AL CARGAR
+// ==========================================
+
+window.addEventListener('load', function() {
+    abrirModal();
 });
 </script>
 
